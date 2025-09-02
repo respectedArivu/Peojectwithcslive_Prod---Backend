@@ -9,8 +9,30 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// --- 🔥 CORS Setup ---
+const allowedOrigins = [
+  "http://localhost:3000", // local frontend
+  "https://arivanandhan.netlify.app/", // replace with your real frontend URL
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("❌ Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 // Middleware
-app.use(cors());
 app.use(express.json()); // replaces body-parser
 
 // MongoDB Connection
