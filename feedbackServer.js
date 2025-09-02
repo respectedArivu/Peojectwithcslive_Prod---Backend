@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4000;
 // --- 🔥 CORS Setup ---
 const allowedOrigins = [
   "http://localhost:3000", // local frontend
-  "https://arivanandhan.netlify.app/", // replace with your real frontend URL
+  "https://arivanandhan.netlify.app", // replace with your real frontend URL
 ];
 
 app.use(
