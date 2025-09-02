@@ -1,9 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
-
+// Load environment variables
 dotenv.config();
 
 const app = express();
@@ -25,7 +25,7 @@ mongoose
   .connect(MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
+    console.error("❌ MongoDB connection error:", err.message);
     process.exit(1);
   });
 
@@ -51,12 +51,12 @@ app.post("/feedback", async (req, res) => {
     await feedback.save();
     res.status(201).json({ message: "✅ Feedback saved successfully!" });
   } catch (err) {
-    console.error("❌ Error saving feedback:", err);
+    console.error("❌ Error saving feedback:", err.message);
     res.status(500).json({ error: "Failed to save feedback" });
   }
 });
 
 // Start Server
-app.listen(port, () => {
-  console.log(`🚀 Feedback API running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Feedback API running on http://localhost:${PORT}`);
 });
